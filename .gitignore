@@ -1,0 +1,11 @@
+__pycache__/
+venv/
+cateogory_names.csv
+
+final_dataset.csv
+processed_quran.csv
+test.csv
+train.csv
+urdu_semantic_bilstm_weighted.keras
+urdu_semantic_bilstm.kereas
+validation.csv
