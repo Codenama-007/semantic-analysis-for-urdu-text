@@ -18,90 +18,151 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 3. Run the Project Files in This Order
+# 3. Generate the Required Dataset
 
-### Step 1 — Preprocessing
+Run these files **in this exact order**.
 
-```bash
-python src/preprocessing.py
-```
+### Step 1 — Process the Original Dataset
 
-### Step 2 — Encode Categories
+Make sure `Complete_Quran_data.csv` is present in the project root.
 
-```bash
-python src/encode_categories.py
-```
-
-### Step 3 — Prepare Training Data
+Then run:
 
 ```bash
-python src/prepare_training_data.py
+python dataset_processing.py
 ```
 
-### Step 4 — Vectorization
+This creates:
+
+```text
+processed_quran.csv
+```
+
+### Step 2 — Encode the Semantic Categories
+
+After `processed_quran.csv` has been created, run:
 
 ```bash
-python src/vectorization.py
+python encode_cateogories.py
 ```
 
-### Step 5 — Create Model
+This creates:
+
+```text
+final_dataset.csv
+category_names.csv
+```
+
+### Step 3 — Prepare Training, Validation and Test Data
+
+After `final_dataset.csv` has been created, run:
 
 ```bash
-python src/model.py
+python prepare_training_data.py
 ```
 
-### Step 6 — Train Baseline Model
+This creates:
+
+```text
+train.csv
+validation.csv
+test.csv
+```
+
+At this point, the required datasets for model training are ready.
+
+# 4. Model Training and Evaluation
+
+After generating the datasets, run the following files as required:
+
+### Vectorization
 
 ```bash
-python src/train.py
+python vectorization.py
 ```
 
-### Step 7 — Evaluate Baseline Model
+### Create Model
 
 ```bash
-python src/evaluate.py
+python model.py
 ```
 
-### Step 8 — Tune Baseline Thresholds
+### Train Baseline Model
 
 ```bash
-python src/tune_thresholds.py
+python train.py
 ```
 
-### Step 9 — Train Weighted Model
+### Evaluate Baseline Model
 
 ```bash
-python src/train_weighted.py
+python evaluate.py
 ```
 
-### Step 10 — Evaluate Weighted Model
+### Tune Baseline Thresholds
 
 ```bash
-python src/evaluate_weighted.py
+python tune_thresholds.py
 ```
 
-### Step 11 — Tune Weighted Thresholds
+### Train Weighted Model
 
 ```bash
-python src/tune_weighted_thresholds.py
+python train_weighted.py
 ```
 
-### Step 12 — Run Prediction System
+### Evaluate Weighted Model
 
 ```bash
-python src/predict.py
+python evaluate_weighted.py
 ```
 
-### Step 13 — Run Streamlit Application
+### Tune Weighted Thresholds
+
+```bash
+python tune_weighted_thresholds.py
+```
+
+# 5. Run Prediction
+
+After the model is trained:
+
+```bash
+python predict.py
+```
+
+# 6. Run Streamlit Application
 
 ```bash
 streamlit run app.py
 ```
 
-## Final Application
+## Important
 
-After completing the training steps, the application can be started directly with:
+For a fresh setup, the **dataset generation must start with**:
 
 ```bash
-streamlit run app.py
+python dataset_processing.py
+```
+
+Do **not** start with `preprocessing.py`. That file contains the preprocessing functions used by `dataset_processing.py`.
+
+The dataset generation flow is:
+
+```text
+Complete_Quran_data.csv
+        ↓
+dataset_processing.py
+        ↓
+processed_quran.csv
+        ↓
+encode_cateogories.py
+        ↓
+final_dataset.csv
+        ↓
+prepare_training_data.py
+        ↓
+train.csv
+validation.csv
+test.csv
 ```
