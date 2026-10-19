@@ -5,13 +5,12 @@ from predict import predict_categories
 
 st.set_page_config(
     page_title="Urdu Semantic Analysis",
-    page_icon="🧠",
     layout="centered"
 )
 
 # Header
 
-st.title("🧠 Urdu Text Semantic Analysis")
+st.title("Urdu Text Semantic Analysis")
 
 st.write(
     "Enter Urdu text and the model will predict "
